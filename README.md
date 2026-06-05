@@ -15,13 +15,13 @@ O sistema deve possuir exatamente as mesmas regras de negócio e dados iniciais 
 
 O sistema simula o agendamento de horários de monitoria entre alunos e professores do DCM da USP Ribeirão Preto.
 
-### Cursos
+### Cursos no departamento
 
 * Ciência da Computação
 * Informática Biomédica
 * Matemática Aplicada a Negócios
 
-### Professores
+### Professores do departamento
 
 | Professor   | Disciplina                |
 | ----------- | ------------------------- |
@@ -84,7 +84,7 @@ O sistema simula o agendamento de horários de monitoria entre alunos e professo
 
 O horário solicitado deve existir na agenda do professor.
 
-#### Exemplo
+Exemplo:
 
 ```text
 Marina -> Tinós -> Segunda -> 18h
@@ -102,7 +102,7 @@ Inválido: professor indisponível.
 
 Um professor não pode atender dois alunos simultaneamente.
 
-#### Exemplo
+Exemplo:
 
 ```text
 Ana -> Tinós -> Segunda -> 14h
@@ -121,7 +121,7 @@ Inválido: horário já ocupado.
 
 Um aluno não pode possuir dois atendimentos simultâneos.
 
-#### Exemplo
+Exemplo:
 
 ```text
 Ana -> Tinós -> Segunda -> 14h
@@ -140,7 +140,7 @@ Inválido: aluno já possui atendimento.
 
 Cada aluno pode possuir no máximo 2 monitorias por semana.
 
-#### Exemplo
+Exemplo:
 
 ```text
 Ana:
@@ -163,7 +163,7 @@ Inválido: limite semanal atingido.
 
 O professor deve ministrar a disciplina solicitada.
 
-#### Exemplo
+Exemplo:
 
 ```text
 Pedro -> Tinós -> Banco de Dados
@@ -189,9 +189,9 @@ Todas as implementações devem permitir:
 
 ---
 
-## Casos de teste (Exemplos de testes das regras definidas)
+## Casos de teste (Testes base para as 3 linguagens)
 
-### Caso válido
+### 1. Caso válido
 
 ```text
 Marina -> Tinós -> Estruturas de Dados -> Quarta -> 14h
@@ -203,7 +203,7 @@ Resultado:
 Agendamento aprovado.
 ```
 
-### Professor ocupado
+### 2. Professor ocupado
 
 ```text
 Júlia -> Baranauskas -> Paradigmas de Programação -> Terça -> 14h
@@ -215,7 +215,7 @@ Resultado:
 Inválido: horário já ocupado.
 ```
 
-### Aluno ocupado
+### 3. Aluno ocupado
 
 ```text
 Ana -> Joaquim -> Banco de Dados -> Segunda -> 14h
@@ -227,7 +227,7 @@ Resultado:
 Inválido: aluno já possui atendimento.
 ```
 
-### Limite semanal
+### 4. Limite semanal
 
 ```text
 Ana -> Baranauskas -> Paradigmas de Programação -> Quinta -> 14h
@@ -239,7 +239,7 @@ Resultado:
 Inválido: limite semanal atingido.
 ```
 
-### Disciplina incompatível
+### 5. Disciplina incompatível
 
 ```text
 Pedro -> Joaquim -> Estruturas de Dados
