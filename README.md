@@ -266,6 +266,45 @@ Cada implementação deve possuir:
 
 ---
 
+## Extra: Chatbot com NLP
+
+Além das implementações principais em Prolog, Lisp e Ruby, foi desenvolvido um **chatbot interativo com Processamento de Linguagem Natural (NLP)** utilizando Python e PySwip para interpretação com Prolog.
+
+### Objetivo
+
+Este extra tem como intuito demonstrar como o Processamento de Linguagem Natural (NLP) pode ser interpretado e processado utilizando Prolog, permitindo que o sistema de agendamento receba requisições em linguagem natural em vez de seguir um formulário rígido.
+
+### Tecnologias utilizadas
+
+* **Python**: Linguagem principal
+* **spaCy**: Processamento de linguagem natural
+* **Scikit-learn**: Classificação de intenções com Naive Bayes
+* **PySwip**: Integração entre Python e Prolog
+
+### Funcionalidades
+
+O chatbot permite:
+
+* Agendar monitorias através de descrições em linguagem natural;
+* Consultar monitorias de um aluno;
+* Consultar horários livres de um professor;
+* Listar todos os agendamentos;
+* Validar intenções e extrair entidades do texto automaticamente.
+
+### Exemplos de uso
+
+```
+Entrada: "Ana quer marcar banco de dados com Joaquim quarta às 16h"
+Saída: Agendamento aprovado.
+
+Entrada: "Quais são os horários do Tinos na segunda?"
+Saída: Segunda 14h, Segunda 15h
+```
+
+**Desenvolvido por:** Vibe Coding
+
+---
+
 ## Informações sobre o trabalho
 
 ### Membros do grupo:
