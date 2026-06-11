@@ -158,6 +158,7 @@ def detectar_intencao(texto):
 
 def extrair_dados(texto):
 
+    texto_original = texto
     texto = texto.lower()
 
     doc = nlp(texto)
@@ -171,24 +172,66 @@ def extrair_dados(texto):
         "hora": None
     }
 
+    # Processa tokens para identificar entidades
     for token in doc:
 
         palavra = token.text
 
-        if palavra in ALUNOS:
-            dados["aluno"] = ALUNOS[palavra]
-
+        # Identifica professor
         if palavra in PROFESSORES:
             dados["professor"] = PROFESSORES[palavra]
 
+        # Identifica dias
         if palavra in DIAS:
             dados["dia"] = DIAS[palavra]
 
+    # Tenta identificar aluno por exclusão
+    palavras_originais = texto_original.split()
+
+    for palavra_original in palavras_originais:
+
+        palavra_limpa = palavra_original.strip(".,!?")
+        palavra_lower = palavra_limpa.lower()
+
+        # Deve começar com letra maiúscula
+        if not palavra_limpa[0].isupper():
+            continue
+
+        # Não pode ser professor
+        if palavra_lower in PROFESSORES:
+            continue
+
+        # Não pode ser dia
+        if palavra_lower in DIAS:
+            continue
+
+        # Não pode ser horário
+        if re.match(r"\d{1,2}(h|:00)?", palavra_lower):
+            continue
+
+        # Não pode fazer parte do nome de disciplina
+        eh_disciplina = False
+
+        for disciplina in DISCIPLINAS:
+            if palavra_lower in disciplina.lower():
+                eh_disciplina = True
+                break
+
+        if eh_disciplina:
+            continue
+
+        # Assume que é o aluno
+        dados["aluno"] = palavra_lower
+        break
+
+    # Identifica disciplinas
     for disciplina in DISCIPLINAS:
 
         if disciplina in texto:
             dados["disciplina"] = DISCIPLINAS[disciplina]
+            break
 
+    # Extrai horário
     horario = re.search(
         r"(\d{1,2})(?:h|:00)?",
         texto
@@ -306,7 +349,7 @@ def ler_agendamento():
     entrada = input(
         "\nDescreva o agendamento de forma natural:\n"
         "(Ex: 'Enzo quer marcar banco de dados com Tinos sexta as 14h')\n\n> "
-    ).lower().strip()
+    ).strip()
 
     # Verifica se usuario quer voltar
     if entrada in ["voltar", "sair"]:
@@ -333,7 +376,7 @@ def ler_agendamento():
         # Solicita reformulacao
         entrada_refinada = input(
             "\nReformule a frase de forma mais completa (ou digite 'voltar'/'sair'):\n> "
-        ).lower().strip()
+        ).strip()
 
         # Verifica se usuario quer voltar
         if entrada_refinada in ["voltar", "sair"]:
